@@ -1,30 +1,17 @@
 <template>
-  <div>
-      <LargeGraph />
+  <div id="app">
+    <LargeGraphData />
   </div>
-  <!-- <RenderGraph />
-  <div id="mountNode"></div> -->
 </template>
 
-<script>
-import LargeGraph from "./components/LargeGraph.vue"
-// import RenderGraph from "./components/RenderGraph.vue"
-export default {
-  name: 'App',
-  components: {
-    LargeGraph
-    // RenderGraph
-  },
-}
-</script>
+<script lang="ts">
+import { defineComponent } from "vue";
+import LargeGraphData from "./components/LargeGraphData.vue";
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+export default defineComponent({
+  name: "App",
+  components: {
+    LargeGraphData
+  }
+});
+</script>

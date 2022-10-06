@@ -1,23 +1,14 @@
 <template>
-    <div id="container"></div>
+    <div>
+        <div id="container"></div>
+    </div>
 </template>
 
-<script lang="ts">
-    import { defineComponent } from "vue";
-    import LargeGraphData from "@/types/LargeGraphData";
+<script>
     import G6 from '@antv/g6';
     import insertCss from 'insert-css';
     import { isNumber, isArray } from '@antv/util';
-    export default defineComponent ({
-        name: "large-graph",
-        data() {
-            return {
-                largeGraphData: {
-                    nodes: [],
-                    edges: []
-                } as LargeGraphData
-            };
-        },
+    export default {
         mounted(){
             insertCss(`
                 .g6-component-contextmenu {
@@ -51,7 +42,7 @@
                     }
             `);
 
-            const { louvain } = G6.Algorithm;
+            const { louvain} = G6.Algorithm;
             const { uniqueId } = G6.Util;
 
             const NODESIZEMAPPING = 'degree';
@@ -1541,7 +1532,8 @@
                                         return `<ul>
               <li id='expand'>Expand the Cluster</li>
               <li id='hide'>Hide the Node</li>
-              <li id='change'>Change BG Color</li>
+              <li id='changeBg'>Change BG Color</li>
+              <li id='changeBorder'>Change Border Color</li>
             </ul>`;
                                     } else {
                                         return `<ul>
@@ -1568,22 +1560,63 @@
                                     graph.hideItem(item);
                                     hiddenItemIds.push(model.id);
                                     break;
-                                case 'change':
-                                data.nodes.forEach(node => {
-                                    if (model.id === '4') {
-                                        node.style = {
-                                        fill: '#e18826',
-                                        // ... other styles
+                                case 'changeBg':
+                                    data.nodes.forEach((node) => {
+                                        console.log(model.id);
+                                        console.log(node);
+                                        if (model.id === '4') {
+                                            console.log(colorSets[3].activeStroke);
+                                            colorSets[3].activeStroke = "#544B2D";
+                                            colorSets;
+                                            console.log(colorSets);
+                                            // console.log(model.colorSet.activeStroke);
+                                            // container.style.backgroundColor = colorSets[3].activeStroke;
                                         }
-                                    } else {
-                                        node.style = {
-                                        fill: '#002a67',
-                                        // ... other styles
+                                        if (model.id === '2') {
+                                            console.log(colorSets[2].activeStroke);
+                                            colorSets[2].activeStroke = "#3B6357";
                                         }
-                                    }
-                                })
-                                    // graph.hideItem(item);
-                                    // hiddenItemIds.push(model.id);
+                                        if (model.id === '5') {
+                                            console.log(colorSets[1].activeStroke);
+                                            colorSets[1].activeStroke = "#403E70";
+                                        }
+                                        if (model.id === '9') {
+                                            console.log(colorSets[1].activeStroke);
+                                            colorSets[1].activeStroke = "#3B6357";
+                                        }
+                                        if (model.id === '3') {
+                                            console.log(colorSets[4].activeStroke);
+                                            colorSets[4].activeStroke = "#1E494C";
+                                        }
+                                        if (model.id === '10') {
+                                            console.log(colorSets[5].activeStroke);
+                                            colorSets[5].activeStroke = "#2B2F33";
+                                        }
+                                    })
+                                    break;
+                                    case 'changeBorder':
+                                    data.nodes.forEach(node => {
+                                        console.log(model);
+                                        console.log(node);
+                                        if (model.id === '4') {
+                                            container.style.backgroundColor = colorSets[3].activeStroke;
+                                        }
+                                        if (model.id === '2') {
+                                            container.style.backgroundColor = colorSets[2].activeStroke;
+                                        }
+                                        if (model.id === '5') {
+                                            container.style.backgroundColor = colorSets[1].activeStroke;
+                                        }
+                                        if (model.id === '9') {
+                                            container.style.backgroundColor = colorSets[0].activeStroke;
+                                        }
+                                        if (model.id === '3') {
+                                            container.style.backgroundColor = colorSets[4].activeStroke;
+                                        }
+                                        if (model.id === '10') {
+                                            container.style.backgroundColor = colorSets[5].activeStroke;
+                                        }
+                                    })
                                     break;
                                 case 'expand':
                                     const newArray = manageExpandCollapseArray(
@@ -1743,7 +1776,7 @@
                     graph.changeSize(container.scrollWidth, container.scrollHeight - 30);
                 };
         }
-    });
+    }
 </script>
 
 <style lang="scss" scoped>
